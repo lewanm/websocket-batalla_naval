@@ -8,7 +8,7 @@ const server = http.createServer(app)
 const io = socket(server)
 
 //esto es para usar lo de la carpeta publica como static
-app.use(express.static(path.join(__dirname,"public"))));
+app.use(express.static(path.join(__dirname,"public")));
 
 server.listen(PORT,() => {
     console.log(`el server corre en https://localhost:${PORT}`)
@@ -33,12 +33,12 @@ io.on('connection', socket =>{
     connections[playerIndex] = false
 
     //este le va a llegar atodos los que esten conectados
-    socket.broadcast.emit('player-Connected:',playerIndex)
+    socket.broadcast.emit('player-connection:',playerIndex)
 
     socket.on('disconnect', () =>{
         console.log(`Jugador ${playerIndex} se ha desconectado`)
         connections[playerIndex] = null
-        socket.broadcast.emit('Player-Connected:',playerIndex)
+        socket.broadcast.emit('player-connection:',playerIndex)
     })
 
     socket.on('player-ready', () => {
